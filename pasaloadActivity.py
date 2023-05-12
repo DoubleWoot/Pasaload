@@ -3,7 +3,6 @@ import time
 import random
 
 load_balance = 0
-x = True
 
 if load_balance == 0:
     random_load = random.randint(1, 50)
@@ -12,12 +11,13 @@ if load_balance == 0:
 def transaction(amount):
     global load_balance
     load_balance += amount
+    print("\nProcessing...")
+    time.sleep(3)
     print("\nYour balance is now: ", load_balance)
 
 
 def add_load():
-    global x
-    global y
+    x = True
 
     print("\nHow much do you want to add?")
     print("""
@@ -29,25 +29,19 @@ def add_load():
         choice = input("Select amount or press 'e' to exit: ")
         if (choice == '1'):
             thread1 = threading.Thread(target=transaction, args=(20,))
-            y = threading.Thread(target=add_load)
-            y.start()
             thread1.start()
             thread1.join()
         elif (choice == '2'):
             thread2 = threading.Thread(target=transaction, args=(50,))
-            y = threading.Thread(target=add_load)
-            y.start()
             thread2.start()
             thread2.join()
         elif (choice == '3'):
             thread3 = threading.Thread(target=transaction, args=(100,))
-            y = threading.Thread(target=add_load)
-            y.start()
             thread3.start()
             thread3.join()
         elif (choice == 'e'):
-            y.join()
             x = False
+            break
 
 
 
